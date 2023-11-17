@@ -1,3 +1,7 @@
+import { Game } from "../model/game";
+import { Mine } from "../model/mine";
+import { Point } from "../model/point";
+
 export const BOMBS_PROBABILITY = 0.15;
 
 const dx = [-1, 0, 1, -1, 1, -1, 0, 1];
@@ -15,7 +19,7 @@ export function newGame(rows: number, columns: number): Game {
                     const isMine = Math.random() < BOMBS_PROBABILITY;
                     if (isMine) {
                         totalMines += 1;
-                        return new Mine({ x: i, y: j }, false, -1, false);
+                        return {{ x: i, y: j }, false, -1, false};
                     } else {
                         return new Mine({ x: i, y: j }, false, 0, false);
                     }
@@ -69,12 +73,25 @@ export function traverseNeighbours(
     }*/
 }
 
-
-export function update(game: Game, f: (b: Mine) => Mine, exploded = false): Game {
+export function update(
+    game: Game,
+    f: (b: Mine) => Mine,
+    exploded = false
+): Game {
     const updated = game.state.slice().map((row) => {
         return row.slice().map((field) => {
             return f(field);
         });
     });
     return new Game(updated, game.totalBombs, game.exploded || exploded);
+}
+function markMine(game: Game, opened: Mine): Game {
+    if (opened.isOpened && !opened.isFlagged) return exploreOpenedField(game, opened);
+    return update(game, (field: Mine) => {
+        if (field == opened) {
+            return new Mine(field.position, false, field.bombs, !field.isFlagged);
+        } else {
+            return new Mine(field.position, field.isOpened, field.bombs, field.isFlagged);
+        }
+    });
 }
