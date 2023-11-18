@@ -7,11 +7,11 @@ export interface MineProps {
     onLeftClick: (field: Mine) => void;
 }
 
-const BombSquare = styled.h1`
+const BombSquare = styled.div`
     background: red;
 `;
 
-const FlagSquare = styled.h1`
+const FlagSquare = styled.div`
     background: blue;
 `;
 
@@ -36,11 +36,11 @@ function renderField(field: Mine) {
         } else if (field.bombs == 0) {
             return "";
         } else {
-            return <BombSquare />;
+            return <BombSquare>Bomb</BombSquare>;
         }
     } else {
         if (field.isFlagged) {
-            return <FlagSquare />;
+            return <FlagSquare >Flag</FlagSquare>;
         } else {
             return "";
         }
