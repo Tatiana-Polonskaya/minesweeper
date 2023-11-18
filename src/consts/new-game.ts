@@ -104,7 +104,7 @@ export function update(
     f: (b: Mine) => Mine,
     exploded = false
 ): Game {
-    const updated = game.state.slice().map((row) => {
+    const updated = game.squares.slice().map((row) => {
         return row.slice().map((field) => {
             return f(field);
         });
@@ -139,14 +139,14 @@ export function markMine(game: Game, opened: Mine): Game {
 function exploreOpenedField(game: Game, opened: Mine): Game {
     const updated = update(game, (field: Mine) => field);
     let hitMine = false;
-    traverseNeighbours(updated.state, opened, (field) => {
+    traverseNeighbours(updated.squares, opened, (field) => {
         if (!field.isOpened && !field.isFlagged) {
             if (field.bombs === -1) {
                 hitMine = true;
             } else {
                 field.isOpened = true;
                 if (field.bombs == 0) {
-                    updateZeros(updated.state, field);
+                    updateZeros(updated.squares, field);
                 }
             }
         }
@@ -201,7 +201,7 @@ export function openMine(game: Game, field: Mine): Game {
         };
         const result = update(game, openField(field));
         if (field.bombs == 0) {
-            updateZeros(result.state, field);
+            updateZeros(result.squares, field);
         }
         return result;
     }
@@ -221,7 +221,7 @@ function updateZeros(fields: Array<Array<Mine>>, start: Mine) {
 
 export function checkCompleted(game: Game): boolean {
     const and = (a: boolean, b: boolean) => a && b;
-    return game.state
+    return game.squares
         .map((row) => {
             return row
                 .map((field) => {
@@ -242,7 +242,7 @@ function isMineCovered(field: Mine) {
 
 export function countFlagged(game: Game): number {
     const plus = (a: number, b: number) => a + b;
-    return game.state
+    return game.squares
         .map((row) => {
             return row
                 .map((field) => {
