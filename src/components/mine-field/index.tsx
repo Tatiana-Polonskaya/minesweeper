@@ -1,5 +1,4 @@
-import { Game } from "../../model/game";
-import { Mine } from "../../model/mine";
+import { Game, Mine } from "../../model/mine";
 import { MineSquare } from "../mine-square";
 
 export interface MineFieldProps {
