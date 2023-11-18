@@ -2,7 +2,20 @@ import { useEffect, useState } from "react";
 import { MineField } from "./components/mine-field";
 import { Timer } from "./components/timer";
 import { Game, IMine, Mine } from "./model/mine";
-import { checkCompleted, countFlagged, markMine, newGame, openMine } from "./consts/new-game";
+import {
+    checkCompleted,
+    countFlagged,
+    markMine,
+    newGame,
+    openMine,
+} from "./consts/new-game";
+
+import styled from "styled-components";
+
+const H1 = styled.h1`
+    color: red;
+    font-size: 4rem;
+`;
 
 function App() {
     const [controlDown, setControlDown] = useState(false);
@@ -96,6 +109,7 @@ function App() {
 
     return (
         <div className="game">
+            <H1>New Minesweeper</H1>
             <div className="menu">
                 <ul className="level-menu">
                     <li onClick={() => startGame(6, 8)}>Easy</li>
