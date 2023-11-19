@@ -7,23 +7,32 @@ export interface MineProps {
     onLeftClick: (field: Mine) => void;
 }
 
+const Square = styled.div`
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    display: inline-block;
+`;
+
 const BombSquare = styled.div`
+    font-size: 15px;
     background: red;
 `;
 
 const FlagSquare = styled.div`
+    font-size: 15px;
     background: blue;
 `;
 
 export const MineSquare = (props: MineProps) => {
     const field = props.field;
     return (
-        <button
+        <Square
             className={"mine-button" + (field.isOpened ? "" : " mine-opened")}
             tabIndex={props.index}
             onClick={() => props.onLeftClick(field)}>
             {renderField(field)}
-        </button>
+        </Square>
     );
 };
 
@@ -40,7 +49,7 @@ function renderField(field: Mine) {
         }
     } else {
         if (field.isFlagged) {
-            return <FlagSquare >Flag</FlagSquare>;
+            return <FlagSquare>Flag</FlagSquare>;
         } else {
             return "";
         }
