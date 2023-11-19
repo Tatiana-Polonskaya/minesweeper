@@ -11,6 +11,7 @@ import {
 } from "./consts/new-game";
 
 import styled from "styled-components";
+import Button from "./components/button";
 
 const H1 = styled.h1`
     color: red;
@@ -112,9 +113,9 @@ function App() {
             <H1>New Minesweeper</H1>
             <div className="menu">
                 <ul className="level-menu">
-                    <li onClick={() => startGame(6, 8)}>Easy</li>
-                    <li onClick={() => startGame(10, 14)}>Medium</li>
-                    <li onClick={() => startGame(20, 30)}>Hard</li>
+                    <Button onClick={() => startGame(6, 8)}>Easy</Button>
+                    <Button onClick={() => startGame(10, 14)}>Medium</Button>
+                    <Button onClick={() => startGame(20, 30)}>Hard</Button>
                 </ul>
             </div>
             <MineField
