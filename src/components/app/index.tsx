@@ -1,22 +1,17 @@
 import { useEffect, useState } from "react";
-import { MineField } from "./components/mine-field";
-import { Timer } from "./components/timer";
-import { Game, IMine, Mine } from "./model/mine";
 import {
     checkCompleted,
     countFlagged,
     markMine,
     newGame,
     openMine,
-} from "./consts/new-game";
-
-import styled from "styled-components";
-import Button from "./components/button";
-
-const H1 = styled.h1`
-    color: red;
-    font-size: 4rem;
-`;
+} from "../../consts/new-game";
+import Button from "../button";
+import { MineField } from "../mine-field";
+import { Timer } from "../timer";
+import { Mine } from "../../@types/mine";
+import { Game } from "../../@types/game";
+import "./style.scss";
 
 function App() {
     const [controlDown, setControlDown] = useState(false);
@@ -55,7 +50,7 @@ function App() {
     };
 
     const updateState = (
-        field: IMine,
+        field: Mine,
         updateFn: (game: Game, field: Mine) => Game
     ) => {
         setState((prev) => {
@@ -73,7 +68,7 @@ function App() {
         });
     };
 
-    const onSquareLeftClick = (field: IMine) => {
+    const onSquareLeftClick = (field: Mine) => {
         if (controlDown) {
             updateState(field, openMine);
         } else {
@@ -109,18 +104,19 @@ function App() {
     }, []);
 
     return (
-        <div className="game">
-            <H1>New Minesweeper</H1>
-            <div className="menu">
-                <ul className="level-menu">
+        <div className="main-page">
+            <header className="header">
+                <h1 className="title">New Minesweeper</h1>
+                <div className="panel">
                     <Button onClick={() => startGame(6, 8)}>Easy</Button>
                     <Button onClick={() => startGame(10, 14)}>Medium</Button>
                     <Button onClick={() => startGame(20, 30)}>Hard</Button>
-                </ul>
-            </div>
+                </div>
+            </header>
+
             <MineField
                 game={state.game}
-                onLeftClick={(field: IMine) => onSquareLeftClick(field)}
+                onLeftClick={(field: Mine) => onSquareLeftClick(field)}
             />
             <Timer elapsedSeconds={state.elapsedSeconds} />
             <div className="status">

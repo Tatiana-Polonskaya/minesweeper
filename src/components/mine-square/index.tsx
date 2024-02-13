@@ -1,4 +1,4 @@
-import { Mine } from "../../model/mine";
+import { Mine } from "../../@types/mine";
 import styled from "styled-components";
 
 export interface MineProps {

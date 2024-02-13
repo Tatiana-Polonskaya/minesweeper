@@ -1,5 +1,6 @@
-import { Game, Mine } from "../model/mine";
-import { Point } from "../model/point";
+import { Game } from "../@types/game";
+import { Mine } from "../@types/mine";
+import { Point } from "../@types/point";
 
 export const BOMBS_PROBABILITY = 0.15;
 
